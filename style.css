@@ -1,0 +1,216 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /*para manter o tamanho que estipular para as caixas */
+}
+:root {
+  --text-color: white;
+  --bg-url: url(./assets/bg-mobile.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.1);
+  --surface-color-hover: rgba(189, 183, 183, 0.507);
+  --highlight-color: rgba(240, 5, 115, 0.555);
+  --rocket-color: rgba(240, 5, 115, 0.555);
+  --switch-bg-url: url(./assets/moon-stars.svg);
+}
+.Light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.1);
+  --highlight-color: rgba(0, 0, 0, 0.3);
+  --rocket-color: rgba(0, 0, 0, 0.15);
+  --switch-bg-url: url(./assets/sun.svg);
+}
+
+body {
+  /*background-image: url(./assets/bg-mobile.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;*/
+  /*background: color image repeat position/size*/
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
+}
+body * {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+#container {
+ /* border: 1px solid red;*/
+  width: 100vw;
+  max-width: 588px;
+  /*height: 712px; usamos a altura no início apenas para ver o tamanho da caixa, o que define a altura no css é o tamanho dos elementos que estiverem naquela caixa*/
+  /*margin: auto; para alinhar a cx ao meio pois div é block*/
+/*margin-top: 56px;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: 0; podemos usar o shorthand para margin, como segue abaixo*/
+  margin: 24px auto 0px;
+  padding: 0 24px;
+}  
+/* profile*/
+#profile {
+  text-align: center; /*podemos colocar no pai do img que é o #profile um text-align que vai centralizar a imagem ou colocar um display block no #profile img*/
+  padding: 18px;
+}
+#profile img {
+  width: 112px;
+  /*margin: auto; não vai alinhar o elemento ao meio dentro da cx pois o img é inline e para fazer alinhar aqui precisaria colocar display: inline; ou seja, para elementos inline não é possível aplicar o margin: auto;*/
+}
+#profile p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /*margin-top: 8px;*/
+}
+/* switch*/
+#switch {
+  /*border: 1px solid red;  usei o border só para visualixar */
+  position: relative;
+  width: 64px; /*deixar com o mesmo tamaho do track*/
+  margin: 4px auto; /* para este display block usar o auto para centralizar*/
+}
+#switch button{
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 1px solid;
+  border-radius: 50%; 
+  /* se sobrepõe em outra camada*/
+  /*absolute permite que button possa ser deslocado para
+   qualquer posição na página(top,right,left,bottom),   
+  então é necessáro colcoar o "position: relative" no elemento switch*/
+  position: absolute;   
+  top: 50%;
+  left: 0;
+  z-index: 1; /* se sobrepõe no 1º andar*/
+  transform: translateY(-50%) ;
+
+  animation: slide-back .3s forwards; /* aqui não precisava do forwards pq o botão já ia ficar na posição 
+  final dele que era o left: 0;  */
+}
+.Light #switch button {
+  /*right: 0;
+  left: initial; va,os remover isto para colocar o animation */
+  animation: slide-in 0.3s forwards; /* forwards é para deixar o botão na posição e não retornar*/
+}
+
+#switch button:hover {
+  outline: 6px solid var(--highlight-color);
+}
+
+#switch span {
+  display: block; /*span é inline e não aceita algumas propriedades, então passamos para block para aceitar e aparecer*/
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  /*backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);*/
+  border-radius: 9999px;
+}
+
+/* lista*/
+ul { /*ul e li são block e "a" é inline, por isso vamos deixar flex*/
+  list-style: none;
+  display: flex; 
+  font-size: 14px;
+  margin-top: 16px;
+  flex-direction: column; 
+  gap: 16px;  
+}
+ul li a { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+  -webkit-backdrop-filter: blur(4px); /*para embassar o elemento*/
+  text-decoration: none;/*para tirar a linha sob o "a", podemos colocar vários tipos de linhas*/
+  font-weight: 500;/*ou "bold" que é o equivalente a 500*/
+  transition: background 0.4s;/*tempo para o botão apagar no hover*/
+}
+/*usar pseudo-selector para estilizar os botões ao passar com o mouse em cima*/
+ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+  color: rgb(148, 6, 93);
+  font-weight: 600;
+}
+/* social-links*/
+#social-links {
+  display: flex;
+  /*border: 1px solid red; */
+  /*gap: 22px; não precisa desse gap pois vou colocar o padding no #social-links a */
+  justify-content: center;
+  
+  padding: 12px 0;
+  font-size: 28px;
+}
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: background 0.2s;
+  border-radius: 40%;
+}
+#social-links a:hover {
+  background: var(--highlight-color);  
+}
+/* footer*/
+footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 8px;
+}
+footer a {
+  text-decoration: none;
+  background: var(--rocket-color);
+  border-radius: 2px;
+}
+footer a:hover {
+  color: black;
+  transition: background 0.3s;
+  font-weight: 540;
+}
+footer ion-icon {
+  color: red;
+}
+
+/* media queries  - começa com @ 
+   mudamos a imagem de fundo usando media queries */
+   @media (min-width: 700px) {
+    :root {
+      --bg-url: url(./assets/bg-desktop.jpg);
+    }
+  
+    .Light {
+      --bg-url: url(./assets/bg-desktop-light.jpg)
+    }
+  }
+  
+/* animation - para fazer o botão deslizar - usar o @ */
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0:
+  }
+}
+
+
